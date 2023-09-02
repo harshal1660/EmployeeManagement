@@ -1,5 +1,6 @@
 package com.example.employeemanagement.controller;
 
+import com.example.employeemanagement.entity.Address;
 import com.example.employeemanagement.entity.Employee;
 import com.example.employeemanagement.exception.EmployeeException;
 import com.example.employeemanagement.service.EmpRepo;
@@ -35,7 +36,8 @@ public class EmployeeController {
             @ApiResponse(responseCode = "400", description = "Invalid id supplied",content = @Content),
             @ApiResponse(responseCode = "404", description = "Employee not found", content = @Content)})
     @PostMapping("/home/addEmp")
-    ResponseEntity<Object> addEmp(@RequestBody Employee employee) throws EmployeeException {
+//    ResponseEntity<Object> addEmp(@RequestBody @Schema(example = "{\"id\": 1, \"name\": \"John Doe\"}") Employee employee) throws EmployeeException {
+    ResponseEntity<Object> addEmp(@RequestBody @Schema(implementation = Address.class) Employee employee) throws EmployeeException {
         return new ResponseEntity<>(empService.saveEmp(employee), HttpStatus.CREATED);
     }
 
